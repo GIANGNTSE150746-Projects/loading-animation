@@ -1,0 +1,51 @@
+/* Import Files */
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("buttons.css");
+@import url("typo.css");
+@import url("shared.css");
+@import url("layout.css");
+@import url("bootstrap/scss/bootstrap");
+
+/* Import Components' File */
+/* @import "../../components/play-button/style.css";
+@import "../../components/bicycle/style.css"; */
+* :not(html, body) {
+  transition: 0.3s ease-in-out;
+  scroll-behavior: smooth;
+}
+html,
+body {
+  scroll-behavior: smooth;
+  font-family: "Lato";
+}
+html,
+body,
+.page-container,
+.container {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* scroll */
+main.page-container {
+  scroll-snap-type: y mandatory;
+  scroll-snap-stop: always;
+  overflow-y: scroll;
+}
+section.container {
+  width: 100%;
+  height: calc(100vh);
+  scroll-snap-align: start;
+}
+
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.content-center {
+  justify-content: center;
+}

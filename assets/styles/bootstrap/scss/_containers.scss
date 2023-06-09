@@ -1,0 +1,74 @@
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+// scss-docs-end container-max-widths
+$enable-grid-classes: true !default;
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+) !default;
+
+// $grid-columns: 12 !default;
+$grid-gutter-width: 1.5rem !default;
+// $grid-row-columns: 6 !default;
+
+// $gutters: $spacers !default;
+
+// Container padding
+
+// $container-padding-x: $grid-gutter-width / 2 !default;
+
+// @mixin make-container($gutter: $container-padding-x) {
+//   width: 100%;
+//   padding-right: var(--#{$variable-prefix}gutter-x, #{$gutter});
+//   padding-left: var(--#{$variable-prefix}gutter-x, #{$gutter});
+//   margin-right: auto;
+//   margin-left: auto;
+// }
+
+@if $enable-grid-classes {
+  // Single container class with breakpoint max-widths
+  .container,
+  // 100% wide container at all breakpoints
+  .container-fluid {
+    // @include make-container();
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  // Responsive containers that are 100% wide until a breakpoint
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    .container-#{$breakpoint} {
+      @extend .container-fluid;
+    }
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      %responsive-container-#{$breakpoint} {
+        max-width: $container-max-width;
+      }
+
+      // Extend each breakpoint which is smaller or equal to the current breakpoint
+      $extend-breakpoint: true;
+
+      @each $name, $width in $grid-breakpoints {
+        @if ($extend-breakpoint) {
+          .container#{breakpoint-infix($name, $grid-breakpoints)} {
+            @extend %responsive-container-#{$breakpoint};
+          }
+
+          // Once the current breakpoint is reached, stop extending
+          @if ($breakpoint == $name) {
+            $extend-breakpoint: false;
+          }
+        }
+      }
+    }
+  }
+}
